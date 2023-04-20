@@ -3,17 +3,37 @@
 // return tutor wage
 function tutorWageCalculator(hourlyRate, level){
 
-    if(hourlyRate === 75 && hours >= 7){
-        var level1 = hours * hourlyRate;
-        return level1;
+    
+    const hours = timesheet.split('-');
+    if(hours.length < 5 || hours.length > 7) {
+        return 0;
     }
-    else if(hourlyRate === 90 && hours >= 9 ){
-       var level2 = hours * hourlyRate;
-       return level2; 
+    let weeklyHours = 0;
+    for (let hour of hours) {
+        weeklyHours += Number(hour);
     }
-    else if(hourlyRate === 90 && hours >= 12){
-         var level3 = hours * hourlyRate;
-         return level3;
+    if (level == 1) {
+        let wage = 75 * weeklyHours;
+        if (weeklyHours > 40) {
+            wage += (wage - 40) * 0.07
+        }
+        return wage;
     }
+    if (level == 2) {
+        const wage = 90 * weeklyHours;
+        if (weeklyHours > 40) {
+            wage += (wage - 40) * 0.09
+        }
+        return wage;
+    }
+    if (level == 3) {
+        const wage = 109 * weeklyHours;
+        if (weeklyHours > 40) {
+            wage += (wage - 40) * 0.12
+        }
+        return wage;
+    }
+    
 }
-console.log(tutorWageCalculator());
+
+console.log(tutorWageCalculator('4-6-9-6-8', 1));
